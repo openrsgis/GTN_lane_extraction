@@ -3,10 +3,10 @@ from GTN import *
 if __name__ == '__main__':
     set_seed(7)
     # read_data
-    df_node_train=pd.read_csv(r"processed_data/nodes_train.csv")
-    df_edge_train=pd.read_csv(r"processed_data/edges_train.csv")
-    df_node_train_augmented=pd.read_csv(r"processed_data/nodes_train_augmented.csv")
-    df_edge_train_augmented=pd.read_csv(r"processed_data/edges_train_augmented.csv")
+    df_node_train=pd.read_csv("processed_data/nodes_train.csv")
+    df_edge_train=pd.read_csv("processed_data/edges_train.csv")
+    df_node_train_augmented=pd.read_csv("processed_data/nodes_train_augmented.csv")
+    df_edge_train_augmented=pd.read_csv("processed_data/edges_train_augmented.csv")
     
     columns_to_normalize = ['hsdf_dis' ,'dis0','dis1','dis2','dis3','dis4','dis5','dis6','dis7','dis8','dis9']
     df_edge_train_normalized = exp_norm_replace(df_edge_train_augmented.copy(), columns_to_normalize, 2)
