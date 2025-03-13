@@ -2,11 +2,11 @@ from data_processing import *
 
 
 if __name__ == '__main__':
-    traj_grouped=pd.read_csv(r'data\traj.csv')
+    traj_grouped=pd.read_csv('data\traj.csv')
     traj_grouped_projected=trans_crs(traj_grouped)
     df_edge=compute_distances(traj_grouped_projected)
-    df_edge.to_csv(r'processed_data\edge.csv',index=False)
-    trueLine_grouped=pd.read_csv(r'data\trueLane.csv')
+    df_edge.to_csv('processed_data\edge.csv',index=False)
+    trueLine_grouped=pd.read_csv('data\trueLane.csv')
     trueLine_grouped['geometry'] = trueLine_grouped['geometry'].apply(wkt.loads)
     trueLine_add_sampling=resample_lines(trueLine_grouped, 0.5/111111)
     train_inter_ids=[0, 10,12,26, 28, 37, 43, 44, 48, 51, 61,67,73, 92, 122,123] # train inter id
@@ -33,20 +33,20 @@ if __name__ == '__main__':
         D_hsdf= hausdorffMatrix(trajs_test, line_test)
         D_hsdf_test_list.append(D_hsdf)
 
-    np.savez(r'processed_data\D_hsdf_train.npz', *D_hsdf_train_list)
-    np.savez(r'processed_data\D_hsdf_test.npz', *D_hsdf_test_list)
+    np.savez('processed_data\D_hsdf_train.npz', *D_hsdf_train_list)
+    np.savez('processed_data\D_hsdf_test.npz', *D_hsdf_test_list)
     df_edge_train=df_edge[df_edge['inter_id'].isin(train_inter_ids)]
     df_edge_test=df_edge[df_edge['inter_id'].isin(test_inter_ids)]
-    df_edge_train.to_csv(r'processed_data\edges_train.csv',index=False)
-    df_edge_test.to_csv(r'processed_data\edges_test.csv',index=False)
+    df_edge_train.to_csv('processed_data\edges_train.csv',index=False)
+    df_edge_test.to_csv('processed_data\edges_test.csv',index=False)
 
     traj_grouped_projected=trans_crs(traj_grouped)
     traj_norm=normalize_trajectory_data(traj_grouped_projected)
     df_node=get_node_df(traj_norm)
     df_node_train=df_node[df_node['inter_id'].isin(train_inter_ids)]
     df_node_test=df_node[df_node['inter_id'].isin(test_inter_ids)]
-    df_node_train.to_csv(r'processed_data\nodes_train.csv',index=False)
-    df_node_test.to_csv(r'processed_data\nodes_test.csv',index=False)
+    df_node_train.to_csv('processed_data\nodes_train.csv',index=False)
+    df_node_test.to_csv('processed_data\nodes_test.csv',index=False)
 
 
     # data augmenting
@@ -190,7 +190,7 @@ if __name__ == '__main__':
         D_hsdf_train_list9.append(D_hsdf_train_list[i][index_list9[i]])
     D_hsdf_train_list_augmented=(D_hsdf_train_list + D_hsdf_train_list0 + D_hsdf_train_list1+D_hsdf_train_list2+D_hsdf_train_list3
                                  +D_hsdf_train_list4+D_hsdf_train_list5+D_hsdf_train_list6+D_hsdf_train_list7+D_hsdf_train_list8+D_hsdf_train_list9)
-    df_node_train_augmented.to_csv(r'processed_data\nodes_train_augmented.csv',index=False)
-    df_edge_train_augmented.to_csv(r'processed_data\edges_train_augmented.csv',index=False)
-    np.savez(r'processed_data\D_hsdf_train_augmented.npz', *D_hsdf_train_list_augmented)
+    df_node_train_augmented.to_csv('processed_data\nodes_train_augmented.csv',index=False)
+    df_edge_train_augmented.to_csv('processed_data\edges_train_augmented.csv',index=False)
+    np.savez('processed_data\D_hsdf_train_augmented.npz', *D_hsdf_train_list_augmented)
     print("Finish data processing.")
