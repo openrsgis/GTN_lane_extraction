@@ -12,8 +12,8 @@ if __name__ == '__main__':
     lane_save_path = 'result/predicted_lane.csv'
     model.load_state_dict(torch.load(model_load_path))
     model.eval()
-    df_edge_test=pd.read_csv(r"processed_data/edges_test.csv")
-    df_node_test=pd.read_csv(r"processed_data/nodes_test.csv")
+    df_edge_test=pd.read_csv("processed_data/edges_test.csv")
+    df_node_test=pd.read_csv("processed_data/nodes_test.csv")
     
     columns_to_normalize = ['hsdf_dis' ,'dis0','dis1','dis2','dis3','dis4','dis5','dis6','dis7','dis8','dis9']
     df_edge_test_normalized = exp_norm_replace(df_edge_test.copy(), columns_to_normalize, 2)
