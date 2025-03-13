@@ -27,7 +27,7 @@ if __name__ == '__main__':
         selected_node_ids = test_node_ids[inter_test_ids[i]][index_list]
         test_selected_node_ids_list=np.append(test_selected_node_ids_list,selected_node_ids)
     
-    traj_grouped=pd.read_csv(r'data/traj.csv')
+    traj_grouped=pd.read_csv('data/traj.csv')
     test_filtered_df = traj_grouped[traj_grouped['trajectory_id'].isin(test_selected_node_ids_list)]
     
     gdf_test = gpd.GeoDataFrame(columns=['inter_id', 'trajectory_id', 'geometry'])
